@@ -1,7 +1,6 @@
 package models
 
-// import "gorm.io/gorm"
-
+// Definimos la estructura de nuestra tabla "Usuario"
 type Usuario struct {
 	ID uint `gorm:"primarykey"`
 	Nombre string `json:"Nombre"`

@@ -1,0 +1,60 @@
+# Define los servicios (contenedores) que vamos a usar
+services:
+  # Servicio que ejecuta la aplicación Go
+  app:
+    # Le dice a Docker que construya la imagen desde el Dockerfile en este directorio
+    build: .
+    
+    # Le damos un nombre al contenedor (opcional pero útil)
+    container_name: app-api-go
+
+    # Mapea el puerto 8080 del contenedor al 8080 de tu máquina
+    ports:
+      - "8080:8080"
+
+    # Este servicio debe esperar a que "mysql" esté listo antes de iniciarse
+    depends_on:
+      - mysql
+
+    # Variables de entorno que la app usa para conectarse a la base de datos
+    environment:
+      - DB_HOST=mysql         # Nombre del servicio de MySQL (Docker lo traduce al IP)
+      - DB_PORT=3306          # Puerto estándar de MySQL
+      - DB_USER=root          # Usuario de la base de datos
+      - DB_PASSWORD=          # Contraseña (en este caso está vacía)
+      - DB_NAME=api_go        # Nombre de la base de datos
+
+  # Servicio que levanta MySQL
+  mysql:
+    # Usamos la imagen oficial de MySQL versión 8.4
+    image: mysql:8.4
+
+    # Nombre del contenedor de la base de datos
+    container_name: mysql-db
+
+    # Mapea el puerto interno 3306 al 3306 local (para conectarse desde fuera si se desea)
+    ports:
+      - "3306:3306"
+
+    # Variables que inicializan la base de datos
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes  # Permite que el usuario root no tenga contraseña
+      - MYSQL_DATABASE=api_go          # Crea esta base al iniciar
+      - MYSQL_ROOT_PASSWORD=           # Contraseña vacía para root
+      - MYSQL_ROOT_HOST=%              # Permite conexiones externas (muy útil en Docker)
+
+    # Persistencia de datos (así no se pierden si se detiene el contenedor)
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+    # Chequeo de salud: comprueba que MySQL esté aceptando conexiones
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# Define los volúmenes que serán compartidos entre host y contenedor
+volumes:
+  mysql_data:  # Almacena los datos persistentes de MySQL
+

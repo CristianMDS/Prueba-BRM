@@ -6,9 +6,14 @@ import (
 	"app-api-go/models"   // Llamado a los modelos.
 	"net/http"            // Paquete para manejar los endpoint de las peticiones.
 	"github.com/gin-gonic/gin" // Framework para crear el enrutamiento.
+	"fmt"
 )
 
 func SetRoutes(router *gin.Engine){
+
+	router.GET("/", func(c *gin.Context){
+		fmt.Println("Hola mundo")
+	})
 
 	// Ruta para solicitar todo el listado de usuarios.
 	// 

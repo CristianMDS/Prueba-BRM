@@ -48,6 +48,7 @@ Me gustaría implementar la creación de un **frontend interactivo**, posiblemen
 | Go          | 1.24           | Lógica del servidor |
 | Gin         | 1.10.1         | Router HTTP |
 | GORM        | 1.30           | Capa de persistencia |
+| Docker Desktop    |  4.41.2 | Contener api |
 
 ---
 
@@ -57,23 +58,49 @@ Me gustaría implementar la creación de un **frontend interactivo**, posiblemen
 go 1.24.4
 # Postman
 Descargar https://www.postman.com/downloads/
-# MySQL
-Descargar https://www.apachefriends.org/
+# Docker
+Descargar https://www.docker.com/
 
 ```
 
 ## 📦 Instalacion
-```bash
-# 1) Clona el repositorio
+### 1. Clona el repositorio
 git clone https://github.com/CristianMDS/Prueba-BRM.git
 cd Prueba-BRM
 
-# 2) Descarga dependencias
-go mod tidy
+### 2. Instalar Docker
 
-# 3) Ejecuta el servicio
-go run main.go
+> **⚠️ Advertencia:** Recuerda tener instalado e iniciado Docker.
+
+### 3. Construye y levanta los contenedores
+```bash
+docker compose up --build
 ```
+
+### 4. Probar en postman 
+| Direccion | tipo de peticion | JSON |
+|-------------|----------------|----------------|
+| http://localhost:8080/crear-usuario       |     POST     | { "Nombre": "", "Apellido": "", "Usuario": "", "Password": "", "Email": "", "Contacto": 0} |
+| http://localhost:8080/listar-usuarios       |     GET     | N/A |
+| http://localhost:8080/usuario/:id       |     GET     | N/A |
+
+> **⚠️ Advertencia:** El email siempre debe ser unico para cada usuario.
+
+### 5. Crea, actualiza y elimina un usuario en postman
+| Accion | Direccion | tipo de peticion |
+|-------------|-----------|----------------|
+|    Crear un Usuario     | http://localhost:8080/crear-usuario       |     POST     |
+|    Actualizar un Usuario     | http://localhost:8080/actualizar-usuario/:id       |     PUT     |
+|    Eliminar un Usuario     | http://localhost:8080/eliminar-usuario/:id       |     DELETE     |
+
+> **⚠️ Advertencia:** Recuerda remplazar el **:id** con el id del usuario tanto en PUT, DELETE o GET (SI ES EL CASO).
+
+### 6. Apaga los contenedores.
+
+```bash
+docker compose down
+```
+
 ---
 
 ## 📂 Estructura del proyecto
@@ -105,14 +132,51 @@ go run main.go
 ---
 
 ## 📷 Peticion POST
+
+### Peticion POST en postman para crear usuarios:
 ![Peticion post en postman](img/post.jpg)
 
 ## 📷 Peticiones GET
-![Peticion post en postman](img/get.jpg)
-![Peticion post en postman](img/get_id.jpg)
 
-## 📷 Peticiones PUT
-![Peticion post en postman](img/put.jpg)
+### Peticion GET en postman para listar usuarios:
+![Peticion GET en postman](img/get.jpg)
 
-## 📷 Peticiones DELETE
+### Peticion GET en postman utilizando el id:
+![Peticion GET en postman utilizando el id](img/get_id.jpg)
+
+## 📷 Peticion PUT
+
+### Peticion PUT en postman para actualizar a los usuarios:
+![Peticion PUT en postman](img/put.jpg)
+
+## 📷 Peticion DELETE
+
+### Peticion DELETE en postman para eliminar usuarios:
 ![Peticion post en postman](img/delete.jpg)
+
+---
+
+## 🧾Licencia MIT
+```bash
+MIT License
+
+Copyright (c) 2025 Cristian Mora Saenz
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

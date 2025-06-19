@@ -19,7 +19,7 @@ var DB *gorm.DB // Inicializamos la variable DB apuntando a la funcion de gorm
 //  - Avisar si es posible que la base de datos ya exista.
 
 func Conexion() {
-    conexion := "root:@tcp(127.0.0.1:3306)/api_go?charset=utf8mb4&parseTime=True"
+    conexion := "root:@tcp(mysql:3306)/api_go?charset=utf8mb4&parseTime=True"
     var err error
     DB, err = gorm.Open(mysql.Open(conexion), &gorm.Config{}) 
     if err != nil {

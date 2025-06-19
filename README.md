@@ -65,8 +65,11 @@ Descargar https://www.docker.com/
 
 ## 📦 Instalacion
 ### 1. Clona el repositorio
+
+```bash
 git clone https://github.com/CristianMDS/Prueba-BRM.git
 cd Prueba-BRM
+```
 
 ### 2. Instalar Docker
 

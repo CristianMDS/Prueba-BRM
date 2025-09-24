@@ -60,6 +60,8 @@ go 1.24.4
 Descargar https://www.postman.com/downloads/
 # Docker
 Descargar https://www.docker.com/
+# Xampp
+Descargar https://www.apachefriends.org/es/index.html
 
 ```
 
@@ -75,12 +77,19 @@ cd Prueba-BRM
 
 > **⚠️ Advertencia:** Recuerda tener instalado e iniciado Docker.
 
-### 3. Construye y levanta los contenedores
+### 3. Instalar MySQL
+
+> **⚠️ Advertencia:** Recuerda tener MySQL.
+
+### Verifica MySQL en Docker:
+![activacion mysql](img/mysql_docker.jpg)
+
+### 4. Construye y levanta los contenedores
 ```bash
 docker compose up --build
 ```
 
-### 4. Probar en postman 
+### 5. Probar en postman 
 | Direccion | tipo de peticion | JSON |
 |-------------|----------------|----------------|
 | http://localhost:8080/crear-usuario       |     POST     | { "Nombre": "", "Apellido": "", "Usuario": "", "Password": "", "Email": "", "Contacto": 0} |
@@ -89,7 +98,10 @@ docker compose up --build
 
 > **⚠️ Advertencia:** El email siempre debe ser unico para cada usuario.
 
-### 5. Crea, actualiza y elimina un usuario en postman
+### 6. Crea, actualiza y elimina un usuario en postman
+
+> **👍 Consejo:** Recuerda Utilizar las "Direcciones" dentro del cuadro para agilizar el proceso de la prueba.
+
 | Accion | Direccion | tipo de peticion |
 |-------------|-----------|----------------|
 |    Crear un Usuario     | http://localhost:8080/crear-usuario       |     POST     |
@@ -98,7 +110,7 @@ docker compose up --build
 
 > **⚠️ Advertencia:** Recuerda remplazar el **:id** con el id del usuario tanto en PUT, DELETE o GET (SI ES EL CASO).
 
-### 6. Apaga los contenedores.
+### 7. Apaga los contenedores.
 
 ```bash
 docker compose down
